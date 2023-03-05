@@ -1,0 +1,23 @@
+.container {
+  margin-left: 3%;
+}
+
+button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 3px;
+  border: none;
+  cursor: pointer;
+  width: 12%;
+}
+ul {
+  list-style-type: none;
+  margin-bottom: 25px;
+}
+body {
+  background-color: rgb(199, 237, 204);
+}
+.hide {
+  display: none;
+}

@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    script(type ="module" src= "/js/postWorkShop.js")
+    style
+      include ../styles/form.css
+      include ../styles/header.css
+    title Create new WorkShop
+  body
+    include ../partials/header
+    div(class ="container")
+      h1 Create new Workshop 
+      p Title:
+        input#title(type="textbox")
+      label Start Date:
+        input#date(type="date")
+      label Start Time:
+        input#time(type="time") 
+      p Participant Minimum Age:
+        input#minAge(type='number')
+      p Participant Maximum Age:
+        input#maxAge(type='number')
+      p Description:
+      textarea( id="description" name="descriptio" rows="4" cols="50")
+      p
+        button(id="submit") Submit

@@ -1,0 +1,47 @@
+html
+	head
+		style
+			include ../styles/header.css
+			include ../styles/profile.css
+		title artwork.name
+		//- if user logins in, load the add comment script
+		if login 
+			script(type ="module" src= "/js/addComment.js")
+	body
+		include ../partials/header
+		div(class = "container")
+			p(id="name")= "Name: " + artwork.name
+			p(id ="artist" value = `${artwork.artist}`)= "Artist: "
+				a(href=`http://localhost:3000/users/users?username=${artwork.artist}`) #{artwork.artist}
+			p= "Year: " +artwork.year
+			p= "Category: "
+				a(href=`http://localhost:3000/artworks/artworks?category=${artwork.category}`) #{artwork.category}
+			p= "Medium: "
+				a(href=`http://localhost:3000/artworks/artworks?medium=${artwork.medium}`) #{artwork.medium}
+			p= "Description: " + artwork.description 
+			p
+				img(src=`${artwork.image}` alt=`${artwork.description}` height="250px" width="250px")
+			h2 Comments
+			//-com means comment 
+			-let count = 0;
+			each com in artwork.reviews
+				p
+					a(href=`http://localhost:3000/users/${com.commentUserID}`) #{com.commentUser}
+				if com["like"]
+					p 👍 
+					-count++;
+				p Comment: #{com.comment}
+
+			//- later implement that artist become a link to jump to the artist profile
+			//- also add review button and so on
+			-if(login && artwork.artist != loginUser) 
+				button(id="like") 👍Like(#{count})
+				div
+					textarea( id="comment" name="commentArea" rows="4" cols="50") Write your Comment Here
+				button(id="submit") Submit
+			-else if(login && artwork.artist === loginUser)	
+				p Hey You can't comment your own artwork
+			-else
+				p Hey You need to Log in First for add Comment
+					a(href=`http://localhost:3000/login`) Log In
+			

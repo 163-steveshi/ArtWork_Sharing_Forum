@@ -1,0 +1,44 @@
+/* give credit to w3 school
+  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_login_form
+
+*/
+h1 {
+  margin-top: 5px;
+  text-align: center;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+  width: 50%;
+  float: center;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}

@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style
+      include ../styles/profile.css
+      include ../styles/header.css
+    title #{user.userName} Profile
+    -if(loginUser ===user.userName && login)
+      script(type ="module" src= "/js/deleteComment.js")
+      script(type="module" src="/js/switchAccountMode.js")
+      script(type="module" src="/js/unfollowArtist.js")
+      script(type="module" src="/js/deleteNotification.js")
+    -if(loginUser !=user.userName && login)
+      script(type ="module" src= "/js/followArtist.js")
+
+  body
+    include ../partials/header
+    div(class = "container")
+      h1(id="userName" value = `${user.userName}`) #{user.userName} Profile
+      //-when logged user view profile, and user is not the artist himself/herself
+      //-dispaly the follow button
+      -if(loginUser !=user.userName && login)
+        button(id="follow") Follow Me
+      //- if non-loggedin user click, it will jump to the logged in page  
+      -else if(!login)
+        button(onclick=`window.location.href='http://localhost:3000/login'` type="button") Follow Me
+      //- check if user is the user Profile User
+      //- if user doesn't login and he is not the profile user
+      //- don't show the button
+      -if(loginUser ===user.userName && login)
+        div
+          button(onclick=`window.location.href='http://localhost:3000/users/${user._id}/newArtwork'` type="button") Post An Artwork
+        div  
+          button(onclick=`window.location.href='http://localhost:3000/workshops/${user._id}/newWorkshop'` type="button") Host An Workshop
+      -let followerNumber = 0  
+      h3 Follower:
+        each f in user.follower
+          p
+            a(href=`http://localhost:3000/users/${f.followerID}`) #{f.followerName}
+            -followerNumber++
+        -if(followerNumber === 0)
+          p #{user.userName} doesn't have follower yet
+      h3
+        a(href=`http://localhost:3000/workshops/workshops?host=${user.userName}`) #{user.userName}'s WorkShops
+
+      h  
+      h3 #{user.userName}'s artworks
+      div(#artworks)
+        ul
+          each art in artworks 
+            li
+              a(href=`http://localhost:3000/artworks/${art._id}`) #{art.name}
+            li  
+              a(href=`http://localhost:3000/artworks/${art._id}`)
+                img(src=`${art.image}` alt=`${art.description}` height="100px" width="100px")
+      include ../partials/userProfile

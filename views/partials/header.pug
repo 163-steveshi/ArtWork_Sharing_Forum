@@ -1,0 +1,18 @@
+div(class="header")
+	a(href="/") Home
+	| 
+	|
+	a(href="/login") Login  
+	|
+	| 
+	a(href="/register") Sign UP 
+	|
+	| 
+	a(href="/artworks/search") search artwork 
+	|
+	|
+	a(href="/logout") Logout
+	|
+	|
+	-if(login && loginUserID)
+		a(href=`/users/${loginUserID}`) My profile

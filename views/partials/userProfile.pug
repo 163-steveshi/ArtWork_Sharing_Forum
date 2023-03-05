@@ -1,0 +1,58 @@
+
+//- artist and comment need a button beside it for remove
+//- count them by with same class name, and loop over their id to install the remove button
+//- check your assignment 3 change vendor part
+//-if user is artist and its login and its the owner of the profile
+//-show the switch to the Patron Button
+-if(user.artist && login && user.userName === loginUser)
+  h3 Change Account Status 
+  button(class="switch"  value = `patron`) Switch to the Patron Mode
+//-if user is not artist and its login and its the owner of the profile  
+-if(!user.artist && login && user.userName === loginUser)
+  h3 Change Account Status 
+  button(class="switch"  value = `artist`) Switch to the Artist Mode
+h3 Followed Artist: 
+  -let followNumber = 0
+  -let count = 0
+  each f in user.followed
+    p
+      a(href=`http://localhost:3000/users/${f.artistID}`) #{f.artistName}
+      -count++
+      //-dispaly the button of unfollow
+      -if( login && user.userName === loginUser)
+        button(class="unfollow" id=`uf${followNumber}` value = `${f.artistID}`) UnFollow
+        -followNumber ++
+  -if(count === 0)
+     h4 Sorry, #{user.userName} doesn't follow anyone
+h3 Registered Workshop:
+  -let workshopNumber = 0
+  each w in user.registeredWorkshop
+    p
+      a(href=`http://localhost:3000/workshops/${w.workshopID}`) #{w.workshopName}
+      -workshopNumber++
+  -if(workshopNumber === 0)
+    h4 Sorry, #{user.userName} doesn't register any workshop
+h3 Comments:
+-let i = 0 
+-let commentNumber = 0
+each com in user.reviews
+  p Artwork Name:
+  a(href=`http://localhost:3000/artworks/${com.artworkID}` id=`url`)  #{com.artworkName}
+  if com["like"]
+    p 👍 
+  p Comment: #{com.comment}
+  -commentNumber ++
+  -if(user.userName === loginUser && login)
+    button(class="delete" id=`d${i}` value = `${com.artworkID}`) ❌
+    -i++
+-if(commentNumber === 0)
+  h4 #{user.userName} currently has no review
+-if(user.userName === loginUser && login)
+  -let j = 0
+  h3 Notification: 
+    each not in user.notification
+      h4 #{not}
+      button(id=`m${j}` class ='message' value = `${not}`) Read
+      -j++
+  -if(j ===0)
+    h4  currently has no notification

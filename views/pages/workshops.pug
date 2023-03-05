@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style
+      include ../styles/header.css
+      include ../styles/profile.css
+    title #{host} WorkShop 
+  body
+    include ../partials/header
+    div(class = "container")
+      h2 #{host}'s Workshops
+      -let workShopNumber = 0;
+      each w in workshops
+        h4
+          a(href=`http://localhost:3000/workshops/${w._id}`) #{w.title}
+          -workShopNumber++
+      -if(workShopNumber === 0)
+        h5 Sorry, it seems that #{host} hasn't host any workshop

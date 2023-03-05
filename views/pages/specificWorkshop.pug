@@ -1,0 +1,49 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    
+    //- when it not the host view the page
+    //- load the register WorkShop script
+    -if(login && loginUser != workshop.host)
+      script(type="module" src="/js/registerWorkshop.js")
+    style
+      include ../styles/header.css
+      include ../styles/profile.css
+    title #{workshop.title}
+  body
+    include ../partials/header
+    div(class= "container")
+      h1(id="name") #{workshop.title}
+      //- if work shop has both minAge and maxAge
+      p host: #{workshop.host}
+        a(id="host" href=`http://localhost:3000/users/${workshop.hostID}`) #{workshop.host}
+      p #{workshop.description}
+      -if(workshop.minAge && workshop.maxAge)
+        p(class="ageLimit" value=`{"minAge": ${workshop.minAge}, "maxAge": ${workshop.maxAge}}`) Age requirement: #{workshop.minAge} to #{workshop.maxAge}
+      -else if(workshop.minAge)
+        p(class="ageLimit" value=`{"minAge": ${workshop.minAge}}`) Age RequireMent: At least #{workshop.minAge}
+      -else if(workshop.maxAge)
+        p(class="ageLimit" value=`{"maxAge":${workshop.maxAge}}` ) Age Requirement: At most #{workshop.maxAge}
+      -else 
+        p(class="ageLimit" value=`-1` ) Age Requirement: No Age Requirement
+      p(id="date") Host Date: #{workshop.date}
+      p Host Time: #{workshop.time}
+
+      h2 Registered Users:
+      -let registerNumber =0
+      each r in workshop.registeredUser 
+        p
+          a(href=`http://localhost:3000/users/${r.registerUserID}`) #{r.registerUserName}
+          -registerNumber++
+      -if(registerNumber ===0)
+        h3 Looks like there isn't any user registered. Click the button and enroll now!
+
+      -if(login && loginUser != workshop.host)
+        button(id="enroll") Enroll 
+      -else if(!login)
+        h2 Please Login First
+      -else if(login && loginUser === workshop.host)
+        h2 You can't register Your Own Workshop

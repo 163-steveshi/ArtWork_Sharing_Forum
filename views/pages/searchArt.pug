@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		script(type="module" src="/js/searchArt.js")
+		style
+			include ../styles/form.css
+			include ../styles/header.css
+		title art
+		
+	
+	body
+		include ../partials/header
+		div(class="container") 
+			h1 ArtWorkSearchEngine
+
+			p Enter data into the filter form below and hit search to find matching artworks.
+
+			p Artist:
+				input#artist(type="textbox")
+			p Name:
+				input#name(type="textbox")
+			p Year:
+				input#year(type="textbox")
+
+			//-render the data 
+			p Category:
+				select#category(name="")
+					option(value =`All`) All Category 
+					each c in	category
+						option(value=`${c}`) #{c}
+			p Medium: 
+				select#medium(name="")
+					option(value = "All") All Medium 
+					each m in medium 
+						option(value =`${m}`) #{m}
+		
+			button#search(type="button") Search
+
+		

@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style
+      include ../styles/profile.css
+      include ../styles/header.css
+    script(type="module" src="/js/searchArtResult.js")
+    title Search Result
+  body
+    include ../partials/header
+    div(class = "container")
+      div#results
+        //- a loop that display matched artworks
+        each r in results
+          h3
+            a(href=`/artworks/${r._id}` target="_blank")  #{r.name}
+      
+      button(id="previous" class = "hide") Previous
+      button(id= "next") Next
+
+
